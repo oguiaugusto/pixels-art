@@ -49,10 +49,24 @@ function selectColor(event) {
   color.classList.add('selected');
 }
 
+// Pintar pixel com a cor selecionada
+function paintPixel(event) {
+  const pixel = event.target;
+  const selectedColor = document.querySelector('.selected');
+  const color = window.getComputedStyle(selectedColor).getPropertyValue('background-color');
+  pixel.style.backgroundColor = `${color}`;
+}
+
 // Event Listeners
 document.addEventListener('click', (event) => {
   if (event.target.classList.contains('color')) {
     selectColor(event);
+  }
+}, false);
+
+document.addEventListener('click', (event) => {
+  if (event.target.classList.contains('pixel')) {
+    paintPixel(event);
   }
 }, false);
 
