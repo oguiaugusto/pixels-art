@@ -7,11 +7,11 @@ for (let index = 1; index <= 4; index += 1) {
 }
 
 // Definir cores da Paleta
-const pallete = document.querySelectorAll('.color');
-const firstPColor = pallete[0];
-const secondPColor = pallete[1];
-const thirdPColor = pallete[2];
-const forthPColor = pallete[3];
+const palette = document.querySelectorAll('.color');
+const firstPColor = palette[0];
+const secondPColor = palette[1];
+const thirdPColor = palette[2];
+const forthPColor = palette[3];
 
 firstPColor.style.color = 'black';
 firstPColor.style.backgroundColor = 'black';
