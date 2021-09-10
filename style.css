@@ -1,5 +1,5 @@
 * {
-  font-family: 'Glory', sans-serif;
+  font-family: Glory, sans-serif;
 }
 
 #title {
@@ -14,3 +14,29 @@
   display: inline-block;
   margin-right: 10px;
 }
+
+#pixel-board {
+  display: grid;
+  grid-template-columns: repeat(5, 40px);
+  grid-template-rows: repeat(5, 40px);
+  grid-gap: 1px;
+}
+
+.pixel {
+  color: white;
+  background-color: white;
+  width: 40px;
+  height: 40px;
+  border: 1px solid black;
+}
+
+/* .line-1, .line-2, .line-3, .line-4, .line-5 {
+  display: inline-block;
+}
+
+.lines {
+  margin-bottom: 0;
+  margin-top: 0;
+  height: 40px;
+  width: 210px;
+} */

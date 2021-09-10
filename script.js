@@ -24,3 +24,13 @@ thirdPColor.style.backgroundColor = '#d14a4a';
 
 forthPColor.style.color = '#e6c936';
 forthPColor.style.backgroundColor = '#e6c936';
+
+// Criar quadro de pixels
+const pixelBoard = document.getElementById('pixel-board');
+for (let index = 1; index <= 5; index += 1) {
+  for (let secondIndex = 1; secondIndex <= 5; secondIndex += 1) {
+    const pixel = document.createElement('div');
+    pixel.className = 'pixel';
+    pixelBoard.appendChild(pixel);
+  }
+}
