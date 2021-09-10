@@ -34,3 +34,14 @@ for (let index = 1; index <= 5; index += 1) {
     pixelBoard.appendChild(pixel);
   }
 }
+
+// Definir cor preta como inicial
+function setInitialColor(color) {
+  color.classList.add('selected');
+}
+
+// On Load
+
+window.onload = function load() {
+  setInitialColor(firstPColor);
+};
