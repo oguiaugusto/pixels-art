@@ -27,11 +27,17 @@ forthPColor.style.backgroundColor = '#e6c936';
 
 // Criar quadro de pixels
 const pixelBoard = document.getElementById('pixel-board');
-for (let index = 1; index <= 5; index += 1) {
-  for (let secondIndex = 1; secondIndex <= 5; secondIndex += 1) {
-    const pixel = document.createElement('div');
-    pixel.className = 'pixel';
-    pixelBoard.appendChild(pixel);
+function generateSquare(size) {
+  for (let index = 1; index <= size; index += 1) {
+    for (let secondIndex = 1; secondIndex <= size; secondIndex += 1) {
+      const pixel = document.createElement('div');
+      pixel.className = 'pixel';
+
+      pixelBoard.style.gridTemplateColumns = `repeat(${size}, 40px)`;
+      pixelBoard.style.gridTemplateRows = `repeat(${size}, 40px)`;
+
+      pixelBoard.appendChild(pixel);
+    }
   }
 }
 
@@ -67,6 +73,30 @@ function clearBoard() {
   }
 }
 
+// Definir tamanho do quadrado
+function deleteSquare() {
+  const allPixels = document.querySelectorAll('.pixel');
+  for (let i = 0; i < allPixels.length; i += 1) {
+    allPixels[i].remove();
+  }
+}
+const sizeInput = document.getElementById('board-size');
+const sizeButton = document.getElementById('generate-board');
+
+function changeBoardSize() {
+  const number = sizeInput.value;
+  if (number >= 5 && number <= 50) {
+    deleteSquare();
+    generateSquare(number);
+  } else if (number > 50) {
+    deleteSquare();
+    generateSquare(50);
+  } else if (number === '') {
+    alert('Board inválido!');
+  }
+  sizeInput.value = '';
+}
+
 // Event Listeners
 document.addEventListener('click', (event) => {
   if (event.target.classList.contains('color')) {
@@ -82,8 +112,17 @@ document.addEventListener('click', (event) => {
 
 clearButton.addEventListener('click', clearBoard);
 
+sizeButton.addEventListener('click', changeBoardSize);
+sizeInput.addEventListener('keyup', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    changeBoardSize();
+  }
+});
+
 // On Load
 
 window.onload = function load() {
   setInitialColor(firstPColor);
+  generateSquare(5);
 };
