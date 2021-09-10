@@ -40,6 +40,22 @@ function setInitialColor(color) {
   color.classList.add('selected');
 }
 
+// Selecionar cor da paleta
+function selectColor(event) {
+  for (let i = 0; i < palette.length; i += 1) {
+    palette[i].className = 'color';
+  }
+  const color = event.target;
+  color.classList.add('selected');
+}
+
+// Event Listeners
+document.addEventListener('click', (event) => {
+  if (event.target.classList.contains('color')) {
+    selectColor(event);
+  }
+}, false);
+
 // On Load
 
 window.onload = function load() {
