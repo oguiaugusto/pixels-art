@@ -13,17 +13,19 @@ const secondPColor = palette[1];
 const thirdPColor = palette[2];
 const forthPColor = palette[3];
 
+const threePColors = [secondPColor, thirdPColor, forthPColor];
+
 firstPColor.style.color = 'black';
 firstPColor.style.backgroundColor = 'black';
 
-secondPColor.style.color = '#4f58b9';
-secondPColor.style.backgroundColor = '#4f58b9';
+// secondPColor.style.color = '#4f58b9';
+// secondPColor.style.backgroundColor = '#4f58b9';
 
-thirdPColor.style.color = '#d14a4a';
-thirdPColor.style.backgroundColor = '#d14a4a';
+// thirdPColor.style.color = '#d14a4a';
+// thirdPColor.style.backgroundColor = '#d14a4a';
 
-forthPColor.style.color = '#e6c936';
-forthPColor.style.backgroundColor = '#e6c936';
+// forthPColor.style.color = '#e6c936';
+// forthPColor.style.backgroundColor = '#e6c936';
 
 // Criar quadro de pixels
 const pixelBoard = document.getElementById('pixel-board');
@@ -97,6 +99,18 @@ function changeBoardSize() {
   sizeInput.value = '';
 }
 
+// Gerar cor aleatória
+// Ideia da função retirada de: https://stackoverflow.com/questions/1484506/random-color-generator
+function generateRandomColor() {
+  const characters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i += 1) {
+    const randomCharacter = characters[Math.floor(Math.random() * 16)];
+    color += randomCharacter;
+  }
+  return color;
+}
+
 // Event Listeners
 document.addEventListener('click', (event) => {
   if (event.target.classList.contains('color')) {
@@ -125,4 +139,8 @@ sizeInput.addEventListener('keyup', (e) => {
 window.onload = function load() {
   setInitialColor(firstPColor);
   generateSquare(5);
+  for (let index = 0; index < threePColors.length; index += 1) {
+    threePColors[index].style.color = `${generateRandomColor()}`;
+    threePColors[index].style.backgroundColor = `${generateRandomColor()}`;
+  }
 };
