@@ -66,3 +66,7 @@ main {
 .color:last-child {
   margin-right: 0;
 }
+
+.selected {
+  box-shadow: 0 0 5px black;
+}
