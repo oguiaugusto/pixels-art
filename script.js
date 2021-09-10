@@ -57,6 +57,16 @@ function paintPixel(event) {
   pixel.style.backgroundColor = `${color}`;
 }
 
+// Botão de limpar
+const clearButton = document.getElementById('clear-board');
+function clearBoard() {
+  const allPixels = document.querySelectorAll('.pixel');
+  for (let i = 0; i < allPixels.length; i += 1) {
+    const currentPixel = allPixels[i];
+    currentPixel.style.backgroundColor = '';
+  }
+}
+
 // Event Listeners
 document.addEventListener('click', (event) => {
   if (event.target.classList.contains('color')) {
@@ -69,6 +79,8 @@ document.addEventListener('click', (event) => {
     paintPixel(event);
   }
 }, false);
+
+clearButton.addEventListener('click', clearBoard);
 
 // On Load
 

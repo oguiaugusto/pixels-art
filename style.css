@@ -2,6 +2,12 @@
   font-family: Glory, sans-serif;
 }
 
+main {
+  width: max-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 #title {
   font-size: xx-large;
   margin-bottom: 8px;
@@ -28,4 +34,16 @@
   width: 40px;
   height: 40px;
   border: 1px solid black;
+}
+
+#button {
+  width: 204px;
+  display: flex;
+  justify-content: center;
+}
+
+#clear-board {
+  width: 80px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
