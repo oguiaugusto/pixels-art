@@ -1,72 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;300;400;500;600&display=swap') ;
+
 * {
-  font-family: Glory, sans-serif;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Josefin Sans, sans-serif;
 }
 
 main {
-  width: max-content;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#palette {
-  width: max-content;
-  margin: auto;
-}
-
-#title {
-  font-size: xx-large;
-  margin-bottom: 8px;
-}
-
-.color {
-  width: 40px;
-  height: 40px;
-  border: 1px solid black;
-  display: inline-block;
-  margin-right: 10px;
-}
-
-#pixel-board {
-  display: grid;
-  grid-template-columns: repeat(5, 40px);
-  grid-template-rows: repeat(5, 40px);
-  grid-gap: 1px;
-  margin-bottom: 50px;
-}
-
-.pixel {
-  color: white;
-  background-color: white;
-  width: 40px;
-  height: 40px;
-  border: 1px solid black;
-}
-
-#button {
   display: flex;
-  justify-content: center;
+  flex-flow: column nowrap;
+  align-items: center;
+  margin: 2rem 0;
 }
 
-#clear-board {
-  width: 80px;
-  margin-top: 10px;
-  margin-bottom: 5px;
+button {
+  font-family: Josefin Sans, sans-serif;
 }
 
-#board-size-section {
+.board-settings {
+  margin: 1rem 0;
   display: flex;
-  justify-content: center;
-  margin-bottom: 10px;
+  flex-flow: column nowrap;
+  align-items: center;
 }
 
-#board-size {
-  margin-right: 5px;
+.board-settings input {
+  width: 40px;
+  padding: 0.5rem 0;
+  font-size: large;
+  font-family: Josefin Sans, sans-serif;
+  font-weight: 600;
+  text-align: center;
 }
 
-.color:last-child {
-  margin-right: 0;
+.settings-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.selected {
-  box-shadow: 0 0 5px black;
+#save-settings {
+  height: 39px;
+}
+
+.board-colors {
+  display: flex;
+  align-items: center;
+}
+
+.board-color {
+  height: 20px;
+  width: 20px;
+  margin: 0 0.4rem;
+  border: 1px solid black;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
+}
+
+.board-color.selected {
+  height: 21px;
+  width: 21px;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+}
+
+#board {
+  border: 1px solid black;
+  margin: 0.5rem 0;
+  width: max-content;
+}
+
+.board-row {
+  display: flex;
+}
+
+.board-col {
+  height: 50px;
+  width: 50px;
+}
+
+.board-col.borders {
+  border: 1px solid black;
+}
+
+.board-settings p {
+  font-size: 12px;
+  text-align: center;
+  margin: 0.5rem 0;
+  color: red;
+}
+
+.board-settings p:first-of-type {
+  color: black;
+}
+
+.hide {
+  display: none;
+}
+
+.colors-tip {
+  font-size: 12px;
+  width: 200px;
+  text-align: center;
+  margin: 10px 0 0;
+  color: #313131;
 }

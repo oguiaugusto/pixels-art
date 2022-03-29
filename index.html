@@ -12,18 +12,24 @@
 </head>
 <body>
   <main>
-    <section id="palette">
-      <h1 id="title">Paleta de Cores</h1>
-      <div id="color-palette"></div>
-    </section>
-    <div id="button">
-      <button type="button" id="clear-board">Limpar</button>
+    <h1>Pixel Art Maker</h1>
+    <div class="board-settings">
+      <p>Enter a number between 2 and 15</p>
+      <div class="settings-input">
+        <input type="text" id="board-size-input">
+        <button type="button" id="save-settings">Save</button>
+      </div>
+      <p class="hide">board size must be between 2 and 15</p>
     </div>
-    <section id="board-size-section">
-      <input type="number" id="board-size" placeholder="Número entre 5 e 50" min='1'>
-      <button type="button" id="generate-board">VQV</button>
-    </section>
-    <section id="pixel-board"></section>
+    <div class="board-colors" id="board-colors">
+      <input type="color" id="color-picker">
+    </div>
+    <p class="colors-tip">Double click to replace one of the colors with the selected one</p>
+    <div id="board"></div>
+    <div class="buttons">
+      <button type="button" id="remove-borders">Borders</button>
+      <button type="button" id="clear">Clear</button>
+    </div>
   </main>
   <script src="script.js"></script>
 </body>
