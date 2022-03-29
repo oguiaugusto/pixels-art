@@ -1,146 +1,107 @@
-// Definir paleta
-for (let index = 1; index <= 4; index += 1) {
-  const color = document.createElement('div');
-  const palette = document.querySelector('#color-palette');
-  color.className = 'color';
-  palette.appendChild(color);
+// Event Listener nos pixels
+function pixelListener({ target }) {
+  const pixel = target;
+  const selectedColorPixel = document.getElementsByClassName('selected')[0];
+  const selectedColor = window
+    .getComputedStyle(selectedColorPixel)
+    .getPropertyValue('background-color');
+
+  pixel.style.backgroundColor = selectedColor;
 }
 
-// Definir cores da Paleta
-const palette = document.querySelectorAll('.color');
-const firstPColor = palette[0];
-const secondPColor = palette[1];
-const thirdPColor = palette[2];
-const forthPColor = palette[3];
+// Seta o tamanho do quadro
+const board = document.getElementById('board');
+function setBoard(size) {
+  while (board.children.length !== 0) board.removeChild(board.lastChild);
+  document.getElementById('board-size-input').value = size;
 
-const threePColors = [secondPColor, thirdPColor, forthPColor];
-
-firstPColor.style.color = 'black';
-firstPColor.style.backgroundColor = 'black';
-
-// secondPColor.style.color = '#4f58b9';
-// secondPColor.style.backgroundColor = '#4f58b9';
-
-// thirdPColor.style.color = '#d14a4a';
-// thirdPColor.style.backgroundColor = '#d14a4a';
-
-// forthPColor.style.color = '#e6c936';
-// forthPColor.style.backgroundColor = '#e6c936';
-
-// Criar quadro de pixels
-const pixelBoard = document.getElementById('pixel-board');
-function generateSquare(size) {
-  for (let index = 1; index <= size; index += 1) {
-    for (let secondIndex = 1; secondIndex <= size; secondIndex += 1) {
-      const pixel = document.createElement('div');
-      pixel.className = 'pixel';
-
-      pixelBoard.style.gridTemplateColumns = `repeat(${size}, 40px)`;
-      pixelBoard.style.gridTemplateRows = `repeat(${size}, 40px)`;
-
-      pixelBoard.appendChild(pixel);
+  for (let i = 1; i <= size; i += 1) {
+    const boardRow = document.createElement('div');
+    for (let j = 1; j <= size; j += 1) {
+      const boardCol = document.createElement('div');
+      boardCol.className = 'board-col borders';
+      boardCol.addEventListener('click', pixelListener);
+      boardRow.appendChild(boardCol);
     }
+    boardRow.className = 'board-row';
+    board.appendChild(boardRow);
   }
 }
 
-// Definir cor preta como inicial
-function setInitialColor(color) {
-  color.classList.add('selected');
-}
+// Mostra ou esconde mensagem de erro do tamanho do input e só aceita números
+const boardSizeInput = document.getElementById('board-size-input');
+const saveSettings = document.getElementById('save-settings');
+boardSizeInput.addEventListener('keyup', ({ target: { value: size } }) => {
+  const errorMsg = document.querySelectorAll('.board-settings p')[1];
 
-// Selecionar cor da paleta
-function selectColor(event) {
-  for (let i = 0; i < palette.length; i += 1) {
-    palette[i].className = 'color';
-  }
-  const color = event.target;
-  color.classList.add('selected');
-}
-
-// Pintar pixel com a cor selecionada
-function paintPixel(event) {
-  const pixel = event.target;
-  const selectedColor = document.querySelector('.selected');
-  const color = window.getComputedStyle(selectedColor).getPropertyValue('background-color');
-  pixel.style.backgroundColor = `${color}`;
-}
-
-// Botão de limpar
-const clearButton = document.getElementById('clear-board');
-function clearBoard() {
-  const allPixels = document.querySelectorAll('.pixel');
-  for (let i = 0; i < allPixels.length; i += 1) {
-    const currentPixel = allPixels[i];
-    currentPixel.style.backgroundColor = '';
-  }
-}
-
-// Definir tamanho do quadrado
-function deleteSquare() {
-  const allPixels = document.querySelectorAll('.pixel');
-  for (let i = 0; i < allPixels.length; i += 1) {
-    allPixels[i].remove();
-  }
-}
-const sizeInput = document.getElementById('board-size');
-const sizeButton = document.getElementById('generate-board');
-
-function changeBoardSize() {
-  const number = sizeInput.value;
-  if (number >= 5 && number <= 50) {
-    deleteSquare();
-    generateSquare(number);
-  } else if (number > 50) {
-    deleteSquare();
-    generateSquare(50);
-  } else if (number === '') {
-    alert('Board inválido!');
-  }
-  sizeInput.value = '';
-}
-
-// Gerar cor aleatória
-// Ideia da função retirada de: https://stackoverflow.com/questions/1484506/random-color-generator
-function generateRandomColor() {
-  const characters = '0123456789ABCDEF';
-  let color = '#';
-  for (let i = 0; i < 6; i += 1) {
-    const randomCharacter = characters[Math.floor(Math.random() * 16)];
-    color += randomCharacter;
-  }
-  return color;
-}
-
-// Event Listeners
-document.addEventListener('click', (event) => {
-  if (event.target.classList.contains('color')) {
-    selectColor(event);
-  }
-}, false);
-
-document.addEventListener('click', (event) => {
-  if (event.target.classList.contains('pixel')) {
-    paintPixel(event);
-  }
-}, false);
-
-clearButton.addEventListener('click', clearBoard);
-
-sizeButton.addEventListener('click', changeBoardSize);
-sizeInput.addEventListener('keyup', (e) => {
-  if (e.key === 'Enter') {
-    e.preventDefault();
-    changeBoardSize();
+  if (!size.match(/^\d+$/)) {
+    boardSizeInput.value = '';
+  } else if (size < 2 || size > 15) {
+    errorMsg.classList.remove('hide');
+    saveSettings.disabled = true;
+  } else {
+    errorMsg.classList.add('hide');
+    saveSettings.disabled = false;
   }
 });
 
-// On Load
+// Ao salvar as configurações, o tamanho do quadro é alterado
+saveSettings.addEventListener('click', () => setBoard(boardSizeInput.value));
+boardSizeInput.addEventListener('keydown', ({ key, target: { value } }) => {
+  if (key === 'Enter') setBoard(value);
+});
 
-window.onload = function load() {
-  setInitialColor(firstPColor);
-  generateSquare(5);
-  for (let index = 0; index < threePColors.length; index += 1) {
-    threePColors[index].style.color = `${generateRandomColor()}`;
-    threePColors[index].style.backgroundColor = `${generateRandomColor()}`;
-  }
+// Selecionar cores
+function selectColor({ target }) {
+  const currSelected = document.getElementsByClassName('selected')[0];
+  currSelected.classList.remove('selected');
+  target.classList.add('selected');
+}
+
+// Trocar cores
+const colorPicker = document.getElementById('color-picker');
+function changeColor({ target }) {
+  const color = target;
+  color.style.backgroundColor = colorPicker.value;
+}
+
+// Seta cores
+const boardColors = document.getElementById('board-colors');
+function setBoardColors() {
+  const basicColors = ['black', 'red', 'blue', 'green'];
+  basicColors.forEach((basicColor, i) => {
+    const boardColor = document.createElement('div');
+    boardColor.className = 'board-color';
+    boardColor.style.backgroundColor = basicColor;
+
+    if (i === 0) boardColor.classList.add('selected');
+    boardColor.addEventListener('click', selectColor);
+    boardColor.addEventListener('dblclick', changeColor);
+
+    boardColors.appendChild(boardColor);
+  });
+}
+
+// Remove bordas
+const removeBordersButton = document.getElementById('remove-borders');
+removeBordersButton.addEventListener('click', () => {
+  const cols = document.querySelectorAll('.board-col');
+  cols.forEach((col) => {
+    col.classList.toggle('borders');
+  });
+});
+
+// Limpar pixels
+const clearButton = document.getElementById('clear');
+clearButton.addEventListener('click', () => {
+  const cols = document.querySelectorAll('.board-col');
+  cols.forEach((column) => {
+    const col = column;
+    col.style.backgroundColor = 'white';
+  });
+});
+
+window.onload = () => {
+  setBoard(5);
+  setBoardColors();
 };
